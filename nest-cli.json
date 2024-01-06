@@ -3,6 +3,18 @@
   "collection": "@nestjs/schematics",
   "sourceRoot": "src",
   "compilerOptions": {
-    "deleteOutDir": true
+    "deleteOutDir": true,
+    "webpack": true
+  },
+  "projects": {
+    "freyja-models": {
+      "type": "library",
+      "root": "libs/freyja-models",
+      "entryFile": "index",
+      "sourceRoot": "libs/freyja-models/src",
+      "compilerOptions": {
+        "tsConfigPath": "libs/freyja-models/tsconfig.lib.json"
+      }
+    }
   }
 }

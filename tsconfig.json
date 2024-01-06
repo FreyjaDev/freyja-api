@@ -16,6 +16,14 @@
     "noImplicitAny": true,
     "strictBindCallApply": true,
     "forceConsistentCasingInFileNames": true,
-    "noFallthroughCasesInSwitch": true
+    "noFallthroughCasesInSwitch": true,
+    "paths": {
+      "@freyja-models/freyja-models": [
+        "libs/freyja-models/src"
+      ],
+      "@freyja-models/freyja-models/*": [
+        "libs/freyja-models/src/*"
+      ]
+    }
   }
 }
