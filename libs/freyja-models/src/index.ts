@@ -1,1 +1,2 @@
-export * from './freyja-models.module';
+export * from './common/value-objects';
+export * from './models';
