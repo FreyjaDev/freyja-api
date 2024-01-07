@@ -1,15 +1,15 @@
 import { modelBaseColumns } from '@freyja-models/freyja-models/common/definitions/model-base';
 import guild from '@freyja-models/freyja-models/models/guild';
-import { bigint, pgTable, unique, varchar } from 'drizzle-orm/pg-core';
+import { pgTable, unique, varchar } from 'drizzle-orm/pg-core';
 
 const ratingType = pgTable(
   'rating_type',
   {
     ...modelBaseColumns,
-    guildId: bigint('guild_id', { mode: 'number' })
+    guildId: varchar('guild_id', { length: 26 })
       .notNull()
       .references(() => guild.id, {
-        onDelete: 'CASCADE',
+        onDelete: 'cascade',
       }),
     name: varchar('name', { length: 255 }).notNull(),
   },

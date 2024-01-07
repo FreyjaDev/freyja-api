@@ -2,18 +2,18 @@ import { modelBaseColumns } from '@freyja-models/freyja-models/common/definition
 import guild from '@freyja-models/freyja-models/models/guild';
 import ratingType from '@freyja-models/freyja-models/models/rating-type';
 import user from '@freyja-models/freyja-models/models/user';
-import { bigint, pgTable } from 'drizzle-orm/pg-core';
+import { bigint, pgTable, varchar } from 'drizzle-orm/pg-core';
 
 const userRating = pgTable('user_rating', {
   ...modelBaseColumns,
-  guildId: bigint('guild_id', { mode: 'number' })
+  guildId: varchar('guild_id', { length: 26 })
     .notNull()
     .references(() => guild.id, { onDelete: 'cascade' }),
-  rating: bigint('rating', { mode: 'number' }).notNull().default(1500n),
-  ratingTypeId: bigint('rating_type_id')
+  rating: bigint('rating', { mode: 'number' }).notNull().default(1500),
+  ratingTypeId: varchar('rating_type_id', { length: 26 })
     .notNull()
     .references(() => ratingType.id, { onDelete: 'cascade' }),
-  userId: bigint('user_id', { mode: 'number' })
+  userId: varchar('user_id', { length: 26 })
     .notNull()
     .references(() => user.id),
 });
