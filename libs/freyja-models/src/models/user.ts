@@ -1,4 +1,4 @@
-import modelBaseColumns from '@freyja-models/freyja-models/common/definitions/model-base';
+import { modelBaseColumns } from '@freyja-models/freyja-models/common/definitions/model-base';
 import { pgTable, varchar } from 'drizzle-orm/pg-core';
 
 export const user = pgTable('user', {

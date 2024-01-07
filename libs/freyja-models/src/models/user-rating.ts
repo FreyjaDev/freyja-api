@@ -1,4 +1,4 @@
-import modelBaseColumns from '@freyja-models/freyja-models/common/definitions/model-base';
+import { modelBaseColumns } from '@freyja-models/freyja-models/common/definitions/model-base';
 import guild from '@freyja-models/freyja-models/models/guild';
 import ratingType from '@freyja-models/freyja-models/models/rating-type';
 import user from '@freyja-models/freyja-models/models/user';

@@ -1,4 +1,4 @@
-import modelBaseColumns from '@freyja-models/freyja-models/common/definitions/model-base';
+import { modelBaseColumns } from '@freyja-models/freyja-models/common/definitions/model-base';
 import guild from '@freyja-models/freyja-models/models/guild';
 import { bigint, pgTable, unique, varchar } from 'drizzle-orm/pg-core';
 

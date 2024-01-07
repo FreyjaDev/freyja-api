@@ -1,4 +1,4 @@
-import modelBaseColumns from '@freyja-models/freyja-models/common/definitions/model-base';
+import { modelBaseColumns } from '@freyja-models/freyja-models/common/definitions/model-base';
 import gameResult from '@freyja-models/freyja-models/models/game-result';
 import user from '@freyja-models/freyja-models/models/user';
 import { bigint, pgTable } from 'drizzle-orm/pg-core';
