@@ -1,6 +1,16 @@
-import { Controller } from '@nestjs/common';
+import { Controller, Delete, Get, Patch, Post } from '@nestjs/common';
 
-@Controller('type')
+@Controller('types')
 export class RatingTypeController {
+  @Get()
+  getAllRatingTypes() {}
 
+  @Post()
+  createRatingType() {}
+
+  @Patch()
+  editRatingType() {}
+
+  @Delete()
+  deleteRatingType() {}
 }
