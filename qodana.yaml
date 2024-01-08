@@ -29,3 +29,4 @@ include:
 
 #Specify Qodana linter for analysis (Applied in CI/CD pipeline)
 linter: jetbrains/qodana-js:latest
+bootstrap: npm install
