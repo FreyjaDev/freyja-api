@@ -24,6 +24,7 @@
       "@freyja-models/freyja-models/*": [
         "libs/freyja-models/src/*"
       ]
-    }
+    },
+    "esModuleInterop": true
   }
 }

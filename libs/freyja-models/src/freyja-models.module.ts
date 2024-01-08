@@ -1,18 +1,6 @@
-import * as process from 'process';
+import { DynamicModule, Module, Provider } from '@nestjs/common';
 
-import { Module } from '@nestjs/common';
-import { drizzle } from 'drizzle-orm/postgres-js';
-import postgres from 'postgres';
-
-const database = drizzle(
-  postgres({
-    database: process.env.POSTGRES_DB,
-    host: process.env.POSTGRES_HOST,
-    password: process.env.POSTGRES_PASSWORD,
-    port: Number(process.env.POSTGRES_PORT),
-    user: process.env.POSTGRES_USER,
-  }),
-);
+import { database } from './database';
 
 @Module({
   exports: [],
@@ -23,4 +11,12 @@ const database = drizzle(
     },
   ],
 })
-export class FreyjaModelsModule {}
+export class FreyjaModelsModule {
+  static forFeature(repositories: Provider[]): DynamicModule {
+    return {
+      exports: repositories,
+      module: FreyjaModelsModule,
+      providers: repositories,
+    };
+  }
+}
