@@ -1,8 +1,8 @@
+import Guild from '@freyja-models/freyja-models/entities/guild';
 import { Inject, Injectable } from '@nestjs/common';
 import { eq } from 'drizzle-orm';
 import { PostgresJsDatabase } from 'drizzle-orm/postgres-js';
 
-import Guild from '../../common/entities/guild';
 import { SnowflakeId } from '../../common/value-objects';
 import { IGuildRepository } from '../../interfaces/repositories/guild.repository.interface';
 import { guild as guildSchema } from '../../models/guild';

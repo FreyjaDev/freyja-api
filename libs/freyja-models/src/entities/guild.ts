@@ -1,5 +1,5 @@
-import { guild as guildSchema } from '../../models/guild';
-import { ULID, Timestamp, SnowflakeId } from '../value-objects';
+import { ULID, Timestamp, SnowflakeId } from '../common/value-objects';
+import { guild as guildSchema } from '../models/guild';
 
 export default class Guild {
   private constructor(

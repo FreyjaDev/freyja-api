@@ -1,4 +1,5 @@
-import Guild from '../../common/entities/guild';
+import Guild from '@freyja-models/freyja-models/entities/guild';
+
 import { SnowflakeId } from '../../common/value-objects';
 
 export interface IGuildRepository {
