@@ -1,3 +1,4 @@
+import { FreyjaModelsModule } from '@freyja-models/freyja-models/freyja-models.module';
 import { Test, TestingModule } from '@nestjs/testing';
 
 import { UserRepository } from './user.repository';
@@ -7,7 +8,7 @@ describe('UserRepository', () => {
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
-      providers: [UserRepository],
+      imports: [FreyjaModelsModule.forFeature([UserRepository])],
     }).compile();
 
     service = module.get<UserRepository>(UserRepository);
