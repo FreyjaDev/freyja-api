@@ -18,14 +18,16 @@ export class GuildRepository implements IGuildRepository {
       .where(eq(guildSchema.id, guild.id.value));
   }
 
-  async findBySnowflakeId(snowflakeId: SnowflakeId): Promise<Guild | null> {
+  async findBySnowflakeId(
+    snowflakeId: SnowflakeId,
+  ): Promise<Guild | undefined> {
     const records = await this.database
       .select()
       .from(guildSchema)
       .where(eq(guildSchema.discordId, snowflakeId.value));
 
     if (records.length === 0) {
-      return null;
+      return undefined;
     }
 
     const record = records[0];

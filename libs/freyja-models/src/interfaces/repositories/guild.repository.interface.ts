@@ -4,6 +4,6 @@ import { SnowflakeId } from '../../common/value-objects';
 
 export interface IGuildRepository {
   delete(guild: Guild): Promise<void>;
-  findBySnowflakeId(snowflakeId: SnowflakeId): Promise<Guild | null>;
+  findBySnowflakeId(snowflakeId: SnowflakeId): Promise<Guild | undefined>;
   save(guild: Guild): Promise<void>;
 }
