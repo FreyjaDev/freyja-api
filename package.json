@@ -86,7 +86,10 @@
       "^@freyja-models/freyja-models(|/.*)$": "<rootDir>/libs/freyja-models/src/$1"
     },
     "setupFiles": [
-      "<rootDir>/unit-test-setup.ts"
+      "<rootDir>/src/unit-test-setup.ts"
+    ],
+    "setupFilesAfterEnv": [
+      "<rootDir>/src/jest.setup.ts"
     ]
   }
 }
