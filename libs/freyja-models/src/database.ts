@@ -3,6 +3,8 @@ import process from 'process';
 import { drizzle } from 'drizzle-orm/postgres-js';
 import postgres from 'postgres';
 
+import * as schema from './models';
+
 const psql = postgres({
   database: process.env.POSTGRES_DB,
   host: process.env.POSTGRES_HOST,
@@ -11,4 +13,4 @@ const psql = postgres({
   user: process.env.POSTGRES_USER,
 });
 
-export const database = drizzle(psql);
+export const database = drizzle(psql, { schema });
