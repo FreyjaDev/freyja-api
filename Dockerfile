@@ -1,4 +1,4 @@
-FROM --platform=linux/arm64 node:lts-alpine3.19 AS base
+FROM --platform=linux/arm64 node:20-bookworm-slim AS base
 ENV PNPM_HOME="/pnpm"
 ENV PATH="$PNPM_HOME:$PATH"
 RUN corepack enable
