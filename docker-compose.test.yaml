@@ -1,0 +1,12 @@
+version: "3.8"
+services:
+  api:
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+      target: sources
+  db:
+    volumes:
+      - test_db_data:/var/lib/postgresql/data
+volumes:
+  test_db_data:

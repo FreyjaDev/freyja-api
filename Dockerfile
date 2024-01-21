@@ -3,7 +3,7 @@ ENV PNPM_HOME="/pnpm"
 ENV PATH="$PNPM_HOME:$PATH"
 RUN corepack enable
 
-FROM base AS builder
+FROM base AS sources
 
 WORKDIR /app
 
@@ -14,6 +14,10 @@ COPY environments environments
 COPY tsconfig.json tsconfig.build.json nest-cli.json ./
 COPY libs libs
 COPY src src
+
+FROM sources AS builder
+
+WORKDIR /app
 
 RUN pnpm run -r build
 
