@@ -4,6 +4,8 @@ import { GuildRepository } from '@freyja-models/freyja-models/repositories/guild
 import { Injectable } from '@nestjs/common';
 import { ulid } from 'ulidx';
 
+import { GuildAlreadyInitializedException } from '../../../../common/error';
+
 @Injectable()
 export class GuildService {
   constructor(private readonly guildRepository: GuildRepository) {}
@@ -13,7 +15,7 @@ export class GuildService {
     const guild = await this.guildRepository.findBySnowflakeId(snowflakeId);
 
     if (guild !== undefined) {
-      return;
+      throw new GuildAlreadyInitializedException();
     }
 
     const id = ulid();

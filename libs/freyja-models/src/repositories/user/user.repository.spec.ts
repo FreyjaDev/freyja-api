@@ -17,4 +17,6 @@ describe('UserRepository', () => {
   it('should be defined', () => {
     expect(service).toBeDefined();
   });
+
+  it('should be created a new entity', () => {});
 });
