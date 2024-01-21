@@ -4,19 +4,20 @@ import { database } from './database';
 
 @Module({
   exports: [],
-  providers: [
-    {
-      provide: 'DATABASE',
-      useValue: database,
-    },
-  ],
+  providers: [],
 })
 export class FreyjaModelsModule {
   static forFeature(repositories: Provider[]): DynamicModule {
     return {
       exports: repositories,
       module: FreyjaModelsModule,
-      providers: repositories,
+      providers: [
+        ...repositories,
+        {
+          provide: 'DATABASE',
+          useValue: database,
+        },
+      ],
     };
   }
 }
