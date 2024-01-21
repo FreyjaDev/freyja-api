@@ -1,0 +1,445 @@
+{
+  "id": "2e33483e-f74f-48c8-874c-e4db732e2bd8",
+  "prevId": "00000000-0000-0000-0000-000000000000",
+  "version": "5",
+  "dialect": "pg",
+  "tables": {
+    "game_result": {
+      "name": "game_result",
+      "schema": "",
+      "columns": {
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "ulid": {
+          "name": "ulid",
+          "type": "varchar(26)",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "guild_id": {
+          "name": "guild_id",
+          "type": "varchar(26)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "loser_user_id": {
+          "name": "loser_user_id",
+          "type": "varchar(26)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "rating_type_id": {
+          "name": "rating_type_id",
+          "type": "varchar(26)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "winner_user_id": {
+          "name": "winner_user_id",
+          "type": "varchar(26)",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "game_result_guild_id_guild_ulid_fk": {
+          "name": "game_result_guild_id_guild_ulid_fk",
+          "tableFrom": "game_result",
+          "tableTo": "guild",
+          "columnsFrom": [
+            "guild_id"
+          ],
+          "columnsTo": [
+            "ulid"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        },
+        "game_result_loser_user_id_user_ulid_fk": {
+          "name": "game_result_loser_user_id_user_ulid_fk",
+          "tableFrom": "game_result",
+          "tableTo": "user",
+          "columnsFrom": [
+            "loser_user_id"
+          ],
+          "columnsTo": [
+            "ulid"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        },
+        "game_result_rating_type_id_rating_type_ulid_fk": {
+          "name": "game_result_rating_type_id_rating_type_ulid_fk",
+          "tableFrom": "game_result",
+          "tableTo": "rating_type",
+          "columnsFrom": [
+            "rating_type_id"
+          ],
+          "columnsTo": [
+            "ulid"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        },
+        "game_result_winner_user_id_user_ulid_fk": {
+          "name": "game_result_winner_user_id_user_ulid_fk",
+          "tableFrom": "game_result",
+          "tableTo": "user",
+          "columnsFrom": [
+            "winner_user_id"
+          ],
+          "columnsTo": [
+            "ulid"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
+    "guild": {
+      "name": "guild",
+      "schema": "",
+      "columns": {
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "ulid": {
+          "name": "ulid",
+          "type": "varchar(26)",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "discord_id": {
+          "name": "discord_id",
+          "type": "varchar(20)",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {
+        "guild_discord_id_unique": {
+          "name": "guild_discord_id_unique",
+          "nullsNotDistinct": false,
+          "columns": [
+            "discord_id"
+          ]
+        }
+      }
+    },
+    "rating_type": {
+      "name": "rating_type",
+      "schema": "",
+      "columns": {
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "ulid": {
+          "name": "ulid",
+          "type": "varchar(26)",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "guild_id": {
+          "name": "guild_id",
+          "type": "varchar(26)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "name": {
+          "name": "name",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "rating_type_guild_id_guild_ulid_fk": {
+          "name": "rating_type_guild_id_guild_ulid_fk",
+          "tableFrom": "rating_type",
+          "tableTo": "guild",
+          "columnsFrom": [
+            "guild_id"
+          ],
+          "columnsTo": [
+            "ulid"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {
+        "unique_name_per_guild": {
+          "name": "unique_name_per_guild",
+          "nullsNotDistinct": true,
+          "columns": [
+            "guild_id",
+            "name"
+          ]
+        }
+      }
+    },
+    "user": {
+      "name": "user",
+      "schema": "",
+      "columns": {
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "ulid": {
+          "name": "ulid",
+          "type": "varchar(26)",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "discord_id": {
+          "name": "discord_id",
+          "type": "varchar(20)",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {
+        "user_discord_id_unique": {
+          "name": "user_discord_id_unique",
+          "nullsNotDistinct": false,
+          "columns": [
+            "discord_id"
+          ]
+        }
+      }
+    },
+    "user_rating": {
+      "name": "user_rating",
+      "schema": "",
+      "columns": {
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "ulid": {
+          "name": "ulid",
+          "type": "varchar(26)",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "guild_id": {
+          "name": "guild_id",
+          "type": "varchar(26)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "rating": {
+          "name": "rating",
+          "type": "bigint",
+          "primaryKey": false,
+          "notNull": true,
+          "default": 1500
+        },
+        "rating_type_id": {
+          "name": "rating_type_id",
+          "type": "varchar(26)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "user_id": {
+          "name": "user_id",
+          "type": "varchar(26)",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "user_rating_guild_id_guild_ulid_fk": {
+          "name": "user_rating_guild_id_guild_ulid_fk",
+          "tableFrom": "user_rating",
+          "tableTo": "guild",
+          "columnsFrom": [
+            "guild_id"
+          ],
+          "columnsTo": [
+            "ulid"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        },
+        "user_rating_rating_type_id_rating_type_ulid_fk": {
+          "name": "user_rating_rating_type_id_rating_type_ulid_fk",
+          "tableFrom": "user_rating",
+          "tableTo": "rating_type",
+          "columnsFrom": [
+            "rating_type_id"
+          ],
+          "columnsTo": [
+            "ulid"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        },
+        "user_rating_user_id_user_ulid_fk": {
+          "name": "user_rating_user_id_user_ulid_fk",
+          "tableFrom": "user_rating",
+          "tableTo": "user",
+          "columnsFrom": [
+            "user_id"
+          ],
+          "columnsTo": [
+            "ulid"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
+    "user_rating_history": {
+      "name": "user_rating_history",
+      "schema": "",
+      "columns": {
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "ulid": {
+          "name": "ulid",
+          "type": "varchar(26)",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "game_result_id": {
+          "name": "game_result_id",
+          "type": "varchar(26)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "rating": {
+          "name": "rating",
+          "type": "bigint",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "user_rating_id": {
+          "name": "user_rating_id",
+          "type": "varchar(26)",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "user_rating_history_game_result_id_game_result_ulid_fk": {
+          "name": "user_rating_history_game_result_id_game_result_ulid_fk",
+          "tableFrom": "user_rating_history",
+          "tableTo": "game_result",
+          "columnsFrom": [
+            "game_result_id"
+          ],
+          "columnsTo": [
+            "ulid"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        },
+        "user_rating_history_user_rating_id_user_ulid_fk": {
+          "name": "user_rating_history_user_rating_id_user_ulid_fk",
+          "tableFrom": "user_rating_history",
+          "tableTo": "user",
+          "columnsFrom": [
+            "user_rating_id"
+          ],
+          "columnsTo": [
+            "ulid"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    }
+  },
+  "enums": {},
+  "schemas": {},
+  "_meta": {
+    "columns": {},
+    "schemas": {},
+    "tables": {}
+  }
+}

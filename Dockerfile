@@ -11,7 +11,7 @@ COPY package.json pnpm-lock.yaml ./
 RUN --mount=type=cache,id=pnpm,target=/pnpm/store pnpm install -g @nestjs/cli && pnpm install --frozen-lockfile
 
 COPY environments environments
-COPY tsconfig.json tsconfig.build.json nest-cli.json ./
+COPY tsconfig.json tsconfig.build.json nest-cli.json migrate.ts ./
 COPY libs libs
 COPY src src
 

@@ -7,5 +7,5 @@ build:
 .PHONY: test
 test:
 	docker-compose $(TEST_PARAM) build
-	docker-compose $(TEST_PARAM) run api sh -c "pnpm run test"||:
+	docker-compose $(TEST_PARAM) run api sh -c "pnpm run migrate && pnpm run test"||:
 	docker-compose $(TEST_PARAM) down --remove-orphans

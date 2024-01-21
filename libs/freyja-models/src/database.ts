@@ -5,7 +5,7 @@ import postgres from 'postgres';
 
 import * as schema from './models';
 
-const psql = postgres({
+export const psql = postgres({
   database: process.env.POSTGRES_DB,
   host: process.env.POSTGRES_HOST,
   password: process.env.POSTGRES_PASSWORD,
