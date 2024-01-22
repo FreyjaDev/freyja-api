@@ -17,7 +17,7 @@ export class GuildService {
     private readonly userRepository: UserRepository,
   ) {}
 
-  async initializeGuild(guildId: string): Promise<void> {
+  async initializeGuild(guildId: string): Promise<Guild> {
     const snowflakeId = new SnowflakeId(guildId);
     const guild = await this.guildRepository.findBySnowflakeId(snowflakeId);
 
@@ -51,6 +51,8 @@ export class GuildService {
         return [...acc, member.user.id];
       }, [] as string[]),
     );
+
+    return newGuild;
   }
 
   private async createGuildUsers(userIds: string[]): Promise<void> {

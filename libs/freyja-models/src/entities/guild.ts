@@ -1,5 +1,6 @@
 import { Entity } from '@freyja-models/freyja-models/entities/base-entity';
 
+import { JsonSerializable } from '../../../../src/common/interfaces/core/core';
 import { ULID, Timestamp, SnowflakeId } from '../common/value-objects';
 import { guild as guildSchema } from '../models/guild';
 
@@ -24,7 +25,7 @@ export default class Guild extends Entity {
     );
   }
 
-  override unwrap(): Record<string, string | number | boolean> {
+  override unwrap(): JsonSerializable {
     return {
       createdAt: this.createdAt.value.getTime(),
       discordId: this.discordId.value,
