@@ -1,26 +1,14 @@
-import { Provider } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import axios from 'axios';
 
 import { discordApis } from '../../../constants/discord-apis';
 import { DiscordGuildMember } from '../../../interfaces/discord/guild';
 
-export const provideDiscordService = (): Provider => ({
-  provide: DiscordService,
-  useClass: DiscordServiceImpl,
-});
-
-export abstract class DiscordService {
-  abstract getGuildMembers(
-    guildId: string,
-    limit: number,
-  ): Promise<DiscordGuildMember[]>;
-}
-
-class DiscordServiceImpl extends DiscordService {
+@Injectable()
+export class DiscordService {
   private readonly token: string;
 
   constructor() {
-    super();
     const token = process.env.DISCORD_BOT_TOKEN;
 
     if (token === undefined) {

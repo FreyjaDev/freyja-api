@@ -3,7 +3,7 @@ import Guild from '@freyja-models/freyja-models/entities/guild';
 import User from '@freyja-models/freyja-models/entities/user';
 import { GuildRepository } from '@freyja-models/freyja-models/repositories/guild/guild.repository';
 import { UserRepository } from '@freyja-models/freyja-models/repositories/user/user.repository';
-import { Injectable, Logger } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { ulid } from 'ulidx';
 
 import { GuildAlreadyInitializedException } from '../../../../common/error';
@@ -14,7 +14,6 @@ export class GuildService {
   constructor(
     private readonly discordService: DiscordService,
     private readonly guildRepository: GuildRepository,
-    private readonly logger: Logger,
     private readonly userRepository: UserRepository,
   ) {}
 

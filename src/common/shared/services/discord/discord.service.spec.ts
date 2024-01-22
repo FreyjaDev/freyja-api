@@ -9,7 +9,7 @@ describe('DiscordService', () => {
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
-      providers: [CommonModule],
+      imports: [CommonModule],
     }).compile();
 
     service = module.get<DiscordService>(DiscordService);
