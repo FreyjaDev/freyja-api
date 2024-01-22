@@ -16,7 +16,5 @@ jobs:
         uses: docker/setup-qemu-action@v2
         with:
           platforms: linux/arm64
-      - name: Build
-        run: make build
       - name: Test
         run: make test
