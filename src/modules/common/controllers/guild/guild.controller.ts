@@ -8,13 +8,17 @@ export class GuildController {
   constructor(private readonly guildService: GuildService) {}
 
   @Post('')
-  async initializeGuild(@Param('guildId') guildId: string): Promise<void> {
+  async initializeGuild(@Param('guildId') guildId: string): Promise<string> {
     try {
       await this.guildService.initializeGuild(guildId);
     } catch (error) {
       if (error instanceof GuildAlreadyInitializedException) {
         throw new ConflictException();
+      } else {
+        console.error(error);
       }
     }
+
+    return 'Guild initialized';
   }
 }

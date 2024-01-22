@@ -1,5 +1,5 @@
 import { Inject, Injectable } from '@nestjs/common';
-import { eq } from 'drizzle-orm';
+import { eq, inArray } from 'drizzle-orm';
 import { PostgresJsDatabase } from 'drizzle-orm/postgres-js';
 
 import { SnowflakeId } from '../../common/value-objects';
@@ -17,6 +17,27 @@ export class UserRepository implements IUserRepository {
     await this.database
       .delete(userSchema)
       .where(eq(userSchema.id, user.id.value));
+  }
+
+  async findAllBySnowflakeIds(snowflakeIds: SnowflakeId[]): Promise<User[]> {
+    const records = await this.database
+      .select()
+      .from(userSchema)
+      .where(
+        inArray(
+          userSchema.discordId,
+          snowflakeIds.map((sid) => sid.value),
+        ),
+      );
+
+    return records.map((record) =>
+      User.create({
+        createdAt: record.createdAt,
+        discordId: record.discordId,
+        id: record.id,
+        updatedAt: record.updatedAt,
+      }),
+    );
   }
 
   async findBySnowflakeId(snowflakeId: SnowflakeId): Promise<User | undefined> {
@@ -55,5 +76,16 @@ export class UserRepository implements IUserRepository {
         },
         target: userSchema.id,
       });
+  }
+
+  async saveAll(users: User[]): Promise<void> {
+    await this.database.insert(userSchema).values(
+      users.map((user) => ({
+        createdAt: user.createdAt.value,
+        discordId: user.discordId.value,
+        id: user.id.value,
+        updatedAt: user.updatedAt.value,
+      })),
+    );
   }
 }

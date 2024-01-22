@@ -9,14 +9,14 @@ export default class User {
     readonly discordId: SnowflakeId,
   ) {}
 
-  static create(guild: typeof userSchema.$inferInsert) {
+  static create(user: typeof userSchema.$inferInsert) {
     const now = new Date();
 
     return new User(
-      new ULID(guild.id),
-      new Timestamp(guild.createdAt || now),
-      new Timestamp(guild.updatedAt || now),
-      new SnowflakeId(guild.discordId),
+      new ULID(user.id),
+      new Timestamp(user.createdAt || now),
+      new Timestamp(user.updatedAt || now),
+      new SnowflakeId(user.discordId),
     );
   }
 }
