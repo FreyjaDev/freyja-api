@@ -13,10 +13,10 @@ export default class User {
     const now = new Date();
 
     return new User(
-      new ULID(user.id),
-      new Timestamp(user.createdAt || now),
-      new Timestamp(user.updatedAt || now),
-      new SnowflakeId(user.discordId),
+      ULID.of(user.id),
+      Timestamp.of(user.createdAt || now),
+      Timestamp.of(user.updatedAt || now),
+      SnowflakeId.of(user.discordId),
     );
   }
 }

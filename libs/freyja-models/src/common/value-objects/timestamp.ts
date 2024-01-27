@@ -1,9 +1,9 @@
-import { ValueObject } from './abstracts/value-object';
+import { ValueObject, Unique } from './value-object';
 
-type Type = Date;
+export default class Timestamp extends ValueObject<Date> {
+  [Unique]: void;
 
-export default class Timestamp extends ValueObject<'timestamp', Type> {
-  protected isValid(): boolean {
-    return true;
+  protected isValid(value: Date): boolean {
+    return !!value;
   }
 }

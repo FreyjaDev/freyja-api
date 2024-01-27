@@ -1,4 +1,8 @@
-import { Entity } from '@freyja-models/freyja-models/entities/base-entity';
+import {
+  Entity,
+  OmitId,
+} from '@freyja-models/freyja-models/entities/base-entity';
+import { ulid } from 'ulidx';
 
 import { JsonSerializable } from '../../../../src/common/interfaces/core/core';
 import { ULID, Timestamp, SnowflakeId } from '../common/value-objects';
@@ -14,23 +18,24 @@ export default class Guild extends Entity {
     super();
   }
 
-  static create(guild: typeof guildSchema.$inferInsert) {
+  static create(guild: OmitId<typeof guildSchema.$inferInsert>) {
+    const id = ulid();
     const now = new Date();
 
     return new Guild(
-      new ULID(guild.id),
-      new Timestamp(guild.createdAt || now),
-      new Timestamp(guild.updatedAt || now),
-      new SnowflakeId(guild.discordId),
+      ULID.of(id),
+      Timestamp.of(guild.createdAt || now),
+      Timestamp.of(guild.updatedAt || now),
+      SnowflakeId.of(guild.discordId),
     );
   }
 
   override unwrap(): JsonSerializable {
     return {
-      createdAt: this.createdAt.value.getTime(),
-      discordId: this.discordId.value,
-      id: this.id.value,
-      updatedAt: this.updatedAt.value.getTime(),
+      createdAt: this.createdAt.value().getTime(),
+      discordId: this.discordId.value(),
+      id: this.id.value(),
+      updatedAt: this.updatedAt.value().getTime(),
     };
   }
 }

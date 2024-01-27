@@ -1,13 +1,9 @@
-import { isValid, ulid } from 'ulidx';
+import { ValueObject, Unique } from './value-object';
 
-import { ValueObject } from './abstracts/value-object';
+export default class ULID extends ValueObject<string> {
+  [Unique]: void;
 
-export default class ULID extends ValueObject<'ulid', string> {
-  constructor(value: string | undefined) {
-    super(value ?? ulid());
-  }
-
-  protected isValid(): boolean {
-    return isValid(this.value);
+  protected override isValid(value: string): boolean {
+    return value.length === 26;
   }
 }
