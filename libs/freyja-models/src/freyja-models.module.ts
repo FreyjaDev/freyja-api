@@ -1,10 +1,11 @@
 import { DynamicModule, Module, Provider } from '@nestjs/common';
 
 import { database } from './database';
+import { RatingTypeRepository } from './repositories/rating-type/rating-type.repository';
 
 @Module({
   exports: [],
-  providers: [],
+  providers: [RatingTypeRepository],
 })
 export class FreyjaModelsModule {
   static forFeature(repositories: Provider[]): DynamicModule {

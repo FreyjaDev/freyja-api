@@ -1,7 +1,9 @@
 import { SnowflakeId } from '@freyja-models/freyja-models';
 import Guild from '@freyja-models/freyja-models/entities/guild';
+import RatingType from '@freyja-models/freyja-models/entities/rating-type';
 import User from '@freyja-models/freyja-models/entities/user';
 import { GuildRepository } from '@freyja-models/freyja-models/repositories/guild/guild.repository';
+import { RatingTypeRepository } from '@freyja-models/freyja-models/repositories/rating-type/rating-type.repository';
 import { UserRepository } from '@freyja-models/freyja-models/repositories/user/user.repository';
 import { Injectable } from '@nestjs/common';
 import { ulid } from 'ulidx';
@@ -15,6 +17,7 @@ export class GuildService {
     private readonly discordService: DiscordService,
     private readonly guildRepository: GuildRepository,
     private readonly userRepository: UserRepository,
+    private readonly ratingTypeRepository: RatingTypeRepository,
   ) {}
 
   async initializeGuild(guildId: string): Promise<Guild> {
@@ -55,13 +58,25 @@ export class GuildService {
     return newGuild;
   }
 
+  async createRatingType(guild: Guild, name: string): Promise<void> {
+    const ratingType = RatingType.create({
+      guildId: guild.id.value(),
+      name,
+    });
+
+    await this.ratingTypeRepository.save(ratingType);
+  }
+
+  async findGuildByGuildId(guildId: string): Promise<Guild | undefined> {
+    return await this.guildRepository.findBySnowflakeId(
+      new SnowflakeId(guildId),
+    );
+  }
+
   private async createGuildUsers(userIds: string[]): Promise<void> {
     const guildUsers = userIds.map((discordUserId) => {
-      const userId = ulid();
-
       return User.create({
         discordId: discordUserId,
-        id: userId,
       });
     });
 

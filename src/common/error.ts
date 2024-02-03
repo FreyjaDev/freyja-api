@@ -12,3 +12,9 @@ export class GuildAlreadyInitializedException extends FreyjaBaseException {
     super('FE0001', 'This guild has already been initialized.');
   }
 }
+
+export class GuildDoesNotExistsException extends FreyjaBaseException {
+  constructor() {
+    super('FE0002', 'The guild does exists.');
+  }
+}

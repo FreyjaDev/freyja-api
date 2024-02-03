@@ -6,10 +6,11 @@ import { Logger, Module } from '@nestjs/common';
 import { DiscordService } from '../../common/shared/services/discord/discord.service';
 
 import { GuildController } from './controllers/guild/guild.controller';
+import { UserController } from './controllers/user/user.controller';
 import { GuildService } from './services/guild/guild.service';
 
 @Module({
-  controllers: [GuildController],
+  controllers: [GuildController, UserController],
   imports: [FreyjaModelsModule.forFeature([GuildRepository, UserRepository])],
   providers: [GuildService, Logger, DiscordService],
 })

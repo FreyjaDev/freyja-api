@@ -1,7 +1,2 @@
-import { JsonSerializable } from '../../../../src/common/interfaces/core/core';
-
-export abstract class Entity {
-  protected constructor() {}
-
-  abstract unwrap(): JsonSerializable;
-}
+export type OptionalId<T extends { id: any }> = Omit<T, 'id'> &
+  Partial<Pick<T, 'id'>>;

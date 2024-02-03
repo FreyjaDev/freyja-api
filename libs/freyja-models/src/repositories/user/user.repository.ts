@@ -4,11 +4,10 @@ import { PostgresJsDatabase } from 'drizzle-orm/postgres-js';
 
 import { SnowflakeId } from '../../common/value-objects';
 import User from '../../entities/user';
-import { IUserRepository } from '../../interfaces/repositories/user.repository.interface';
 import { user as userSchema } from '../../models/user';
 
 @Injectable()
-export class UserRepository implements IUserRepository {
+export class UserRepository {
   constructor(
     @Inject('DATABASE') private readonly database: PostgresJsDatabase,
   ) {}
@@ -16,7 +15,7 @@ export class UserRepository implements IUserRepository {
   async delete(user: User): Promise<void> {
     await this.database
       .delete(userSchema)
-      .where(eq(userSchema.id, user.id.value));
+      .where(eq(userSchema.id, user.id.value()));
   }
 
   async findAllBySnowflakeIds(snowflakeIds: SnowflakeId[]): Promise<User[]> {
@@ -26,7 +25,7 @@ export class UserRepository implements IUserRepository {
       .where(
         inArray(
           userSchema.discordId,
-          snowflakeIds.map((sid) => sid.value),
+          snowflakeIds.map((sid) => sid.value()),
         ),
       );
 
@@ -44,7 +43,7 @@ export class UserRepository implements IUserRepository {
     const records = await this.database
       .select()
       .from(userSchema)
-      .where(eq(userSchema.discordId, snowflakeId.value));
+      .where(eq(userSchema.discordId, snowflakeId.value()));
 
     if (records.length === 0) {
       return undefined;
@@ -64,27 +63,27 @@ export class UserRepository implements IUserRepository {
     await this.database
       .insert(userSchema)
       .values({
-        createdAt: user.createdAt.value,
-        discordId: user.discordId.value,
-        id: user.id.value,
-        updatedAt: user.updatedAt.value,
+        createdAt: user.createdAt.value(),
+        discordId: user.discordId.value(),
+        id: user.id.value(),
+        updatedAt: user.updatedAt.value(),
       })
       .onConflictDoUpdate({
         set: {
-          discordId: user.discordId.value,
-          updatedAt: user.updatedAt.value,
+          discordId: user.discordId.value(),
+          updatedAt: user.updatedAt.value(),
         },
-        target: userSchema.id,
+        target: userSchema.discordId,
       });
   }
 
   async saveAll(users: User[]): Promise<void> {
     await this.database.insert(userSchema).values(
       users.map((user) => ({
-        createdAt: user.createdAt.value,
-        discordId: user.discordId.value,
-        id: user.id.value,
-        updatedAt: user.updatedAt.value,
+        createdAt: user.createdAt.value(),
+        discordId: user.discordId.value(),
+        id: user.id.value(),
+        updatedAt: user.updatedAt.value(),
       })),
     );
   }
