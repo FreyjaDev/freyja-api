@@ -1,4 +1,5 @@
-import Guild from '@freyja-models/freyja-models/entities/guild';
+import { JsonSerializable } from '@freyja-models/freyja-models/common/utility-types';
+import { Guild } from '@freyja-models/freyja-models/entities';
 import {
   ConflictException,
   Controller,
@@ -10,7 +11,6 @@ import {
 } from '@nestjs/common';
 
 import { GuildAlreadyInitializedException } from '../../../../common/error';
-import { JsonSerializable } from '../../../../common/interfaces/core/core';
 import { GuildService } from '../../services/guild/guild.service';
 
 @Controller('guild')

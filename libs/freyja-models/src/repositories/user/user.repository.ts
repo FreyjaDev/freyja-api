@@ -1,10 +1,10 @@
-import { userTable as userSchema } from '@freyja-models/freyja-models/schemas/user';
 import { Inject, Injectable } from '@nestjs/common';
 import { eq, inArray } from 'drizzle-orm';
 import { PostgresJsDatabase } from 'drizzle-orm/postgres-js';
 
 import { SnowflakeId } from '../../common/value-objects';
-import User from '../../entities/user';
+import { User } from '../../entities';
+import { userSchema } from '../../schemas';
 
 @Injectable()
 export class UserRepository {

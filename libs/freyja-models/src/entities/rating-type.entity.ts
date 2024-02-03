@@ -1,10 +1,9 @@
-import { GeneralString, Timestamp, ULID } from '@freyja-models/freyja-models';
-import { OptionalId } from '@freyja-models/freyja-models/entities/base-entity';
-import { Entity } from '@freyja-models/freyja-models/interfaces/entity.interface';
 import { ulid } from 'ulidx';
 
-import { JsonSerializable } from '../../../../src/common/interfaces/core/core';
-import { ratingTypeTable as ratingTypeSchema } from '../schemas';
+import { OptionalId, JsonSerializable } from '../common/utility-types';
+import { GeneralString, Timestamp, ULID } from '../common/value-objects';
+import { Entity } from '../interfaces/entity.interface';
+import { ratingTypeSchema } from '../schemas';
 
 export default class RatingType implements Entity {
   private constructor(

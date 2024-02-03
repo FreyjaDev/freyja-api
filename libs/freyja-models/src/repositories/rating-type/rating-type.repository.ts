@@ -1,8 +1,8 @@
-import RatingType from '@freyja-models/freyja-models/entities/rating-type';
 import { Inject, Injectable } from '@nestjs/common';
 import { PostgresJsDatabase } from 'drizzle-orm/postgres-js';
 
-import { ratingTypeTable as ratingTypeSchema } from '../../schemas';
+import { RatingType } from '../../entities';
+import { ratingTypeSchema } from '../../schemas';
 
 @Injectable()
 export class RatingTypeRepository {

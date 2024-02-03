@@ -1,9 +1,9 @@
-import { SnowflakeId } from '@freyja-models/freyja-models';
-import Guild from '@freyja-models/freyja-models/entities/guild';
-import { guildFactory } from '@freyja-models/freyja-models/factories';
 import { Test, TestingModule } from '@nestjs/testing';
 import { ulid } from 'ulidx';
 
+import { SnowflakeId } from '../../common/value-objects';
+import { Guild } from '../../entities';
+import { guildFactory } from '../../factories';
 import { FreyjaModelsModule } from '../../freyja-models.module';
 
 import { GuildRepository } from './guild.repository';
@@ -36,7 +36,7 @@ describe('GuildRepository', () => {
   it('should create a new entity.', async () => {
     const snowflakeId = new SnowflakeId('123456789012345678');
 
-    const guild = Guild.create({ discordId: snowflakeId.value });
+    const guild = Guild.create({ discordId: snowflakeId.value() });
     await service.save(guild);
 
     const fetchedGuild = await service.findBySnowflakeId(snowflakeId);
