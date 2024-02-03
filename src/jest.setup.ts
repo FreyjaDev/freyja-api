@@ -1,7 +1,7 @@
 import process from 'process';
 
-import * as schema from '@freyja-models/freyja-models/models';
 import { drizzle, PostgresJsDatabase } from 'drizzle-orm/postgres-js';
+import * as schema from 'libs/freyja-models/src/schemas';
 import postgres from 'postgres';
 
 let psql: postgres.Sql;

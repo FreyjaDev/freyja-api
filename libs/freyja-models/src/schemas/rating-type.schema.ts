@@ -1,5 +1,5 @@
 import { modelBaseColumns } from '@freyja-models/freyja-models/common/definitions/model-base';
-import guildTable from '@freyja-models/freyja-models/models/guild';
+import guildTable from '@freyja-models/freyja-models/schemas/guild';
 import { pgTable, unique, varchar } from 'drizzle-orm/pg-core';
 
 const ratingTypeTable = pgTable(

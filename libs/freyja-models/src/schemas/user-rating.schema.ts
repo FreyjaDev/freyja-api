@@ -1,7 +1,7 @@
 import { modelBaseColumns } from '@freyja-models/freyja-models/common/definitions/model-base';
-import guildTable from '@freyja-models/freyja-models/models/guild';
-import ratingTypeTable from '@freyja-models/freyja-models/models/rating-type';
-import userTable from '@freyja-models/freyja-models/models/user';
+import guildTable from '@freyja-models/freyja-models/schemas/guild';
+import ratingTypeTable from '@freyja-models/freyja-models/schemas/rating-type';
+import userTable from '@freyja-models/freyja-models/schemas/user';
 import { bigint, pgTable, varchar } from 'drizzle-orm/pg-core';
 
 const userRatingTable = pgTable('user_rating', {

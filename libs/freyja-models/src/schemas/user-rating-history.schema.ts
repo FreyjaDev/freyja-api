@@ -1,6 +1,6 @@
 import { modelBaseColumns } from '@freyja-models/freyja-models/common/definitions/model-base';
-import gameResultTable from '@freyja-models/freyja-models/models/game-result';
-import userTable from '@freyja-models/freyja-models/models/user';
+import gameResultTable from '@freyja-models/freyja-models/schemas/game-result';
+import userTable from '@freyja-models/freyja-models/schemas/user';
 import { bigint, pgTable, varchar } from 'drizzle-orm/pg-core';
 
 const userRatingHistoryTable = pgTable('user_rating_history', {

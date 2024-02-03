@@ -3,7 +3,7 @@ import process from 'process';
 import { drizzle } from 'drizzle-orm/postgres-js';
 import postgres from 'postgres';
 
-import * as schema from './models';
+import * as schema from './schemas';
 
 export const psql = postgres({
   database: process.env.POSTGRES_DB,

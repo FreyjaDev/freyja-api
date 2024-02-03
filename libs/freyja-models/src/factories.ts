@@ -1,6 +1,6 @@
 import { database } from '@freyja-models/freyja-models/database';
 import Guild from '@freyja-models/freyja-models/entities/guild';
-import { guildTable as guildSchema } from '@freyja-models/freyja-models/models/guild';
+import { guildTable as guildSchema } from '@freyja-models/freyja-models/schemas/guild';
 
 export const guildFactory = async (guild: typeof guildSchema.$inferInsert) => {
   const now = new Date();
