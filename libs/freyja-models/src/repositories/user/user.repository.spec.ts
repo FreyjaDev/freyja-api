@@ -1,5 +1,5 @@
 import { SnowflakeId, ULID } from '@freyja-models/freyja-models';
-import User from '@freyja-models/freyja-models/entities/user';
+import { User } from '@freyja-models/freyja-models/entities';
 import { FreyjaModelsModule } from '@freyja-models/freyja-models/freyja-models.module';
 import { Test, TestingModule } from '@nestjs/testing';
 import { ulid } from 'ulidx';
@@ -27,8 +27,8 @@ describe('UserRepository', () => {
     const userSnowflakeId = new SnowflakeId('123456789012345678');
 
     const user = User.create({
-      discordId: userSnowflakeId.value,
-      id: userId.value,
+      discordId: userSnowflakeId.value(),
+      id: userId.value(),
     });
     await service.save(user);
 

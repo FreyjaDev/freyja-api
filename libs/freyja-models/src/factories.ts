@@ -1,5 +1,5 @@
 import { database } from './database';
-import Guild from './entities/guild';
+import { Guild } from './entities';
 import { guildSchema } from './schemas';
 
 export const guildFactory = async (guild: typeof guildSchema.$inferInsert) => {
