@@ -1,4 +1,5 @@
 import { Inject, Injectable } from '@nestjs/common';
+import { eq } from 'drizzle-orm';
 import { PostgresJsDatabase } from 'drizzle-orm/postgres-js';
 
 import { RatingType } from '../../entities';
@@ -9,6 +10,12 @@ export class RatingTypeRepository {
   constructor(
     @Inject('DATABASE') private readonly database: PostgresJsDatabase,
   ) {}
+
+  async delete(ratingType: RatingType): Promise<void> {
+    await this.database
+      .delete(ratingTypeSchema)
+      .where(eq(ratingTypeSchema.id, ratingType.id.value()));
+  }
 
   async save(ratingType: RatingType): Promise<void> {
     await this.database
