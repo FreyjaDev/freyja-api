@@ -36,9 +36,12 @@ export class GuildController {
     return createGuild.unwrap();
   }
 
-  @Post(':guildId/rating-type')
+  @Post(':guildId/rating-types')
   @HttpCode(201)
-  async createRatingType(@Param('guildId') guildId: string): Promise<void> {
+  async createRatingType(
+    @Param('guildId') guildId: string,
+    name: string,
+  ): Promise<void> {
     // Guild の存在確認
     const guild = await this.guildService.findGuildByGuildId(guildId);
 
@@ -46,6 +49,6 @@ export class GuildController {
       throw new NotFoundException();
     }
 
-    await this.guildService.createRatingType(guildId);
+    await this.guildService.createRatingType(guild, name);
   }
 }
