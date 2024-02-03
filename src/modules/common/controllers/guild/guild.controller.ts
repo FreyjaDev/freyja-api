@@ -1,6 +1,7 @@
 import { JsonSerializable } from '@freyja-models/freyja-models/common/utility-types';
 import { Guild } from '@freyja-models/freyja-models/entities';
 import {
+  Body,
   ConflictException,
   Controller,
   HttpCode,
@@ -8,10 +9,16 @@ import {
   NotFoundException,
   Param,
   Post,
+  UsePipes,
 } from '@nestjs/common';
 
 import { GuildAlreadyInitializedException } from '../../../../common/error';
+import { ZodValidationPipe } from '../../pipes/zod-validation.pipe';
 import { GuildService } from '../../services/guild/guild.service';
+import {
+  CreateRatingTypeDto,
+  createRatingTypeSchema,
+} from '../../validators/create-rating-type.validator';
 
 @Controller('guild')
 export class GuildController {
@@ -37,10 +44,11 @@ export class GuildController {
   }
 
   @Post(':guildId/rating-types')
+  @UsePipes(new ZodValidationPipe(createRatingTypeSchema))
   @HttpCode(201)
   async createRatingType(
     @Param('guildId') guildId: string,
-    name: string,
+    @Body() createRatingTypeDto: CreateRatingTypeDto,
   ): Promise<void> {
     // Guild の存在確認
     const guild = await this.guildService.findGuildByGuildId(guildId);
@@ -49,6 +57,6 @@ export class GuildController {
       throw new NotFoundException();
     }
 
-    await this.guildService.createRatingType(guild, name);
+    await this.guildService.createRatingType(guild, createRatingTypeDto.name);
   }
 }

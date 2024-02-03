@@ -1,7 +1,5 @@
 import { SnowflakeId } from '@freyja-models/freyja-models';
-import Guild from '@freyja-models/freyja-models/entities/guild';
-import RatingType from '@freyja-models/freyja-models/entities/rating-type';
-import User from '@freyja-models/freyja-models/entities/user';
+import { Guild, RatingType, User } from '@freyja-models/freyja-models/entities';
 import { GuildRepository } from '@freyja-models/freyja-models/repositories/guild/guild.repository';
 import { RatingTypeRepository } from '@freyja-models/freyja-models/repositories/rating-type/rating-type.repository';
 import { UserRepository } from '@freyja-models/freyja-models/repositories/user/user.repository';
