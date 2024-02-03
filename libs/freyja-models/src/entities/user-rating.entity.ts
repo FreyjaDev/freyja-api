@@ -1,6 +1,6 @@
 import { ulid } from 'ulidx';
 
-import { OptionalId } from '../common/utility-types';
+import { JsonSerializable, OptionalId } from '../common/utility-types';
 import { Timestamp, ULID, Number } from '../common/value-objects';
 import { Entity } from '../interfaces/entity.interface';
 import { userRatingSchema } from '../schemas';
@@ -29,5 +29,17 @@ export default class UserRating implements Entity {
       ULID.of(userRating.ratingTypeId),
       ULID.of(userRating.userId),
     );
+  }
+
+  unwrap(): JsonSerializable {
+    return {
+      createdAt: this.createdAt.value().getTime(),
+      guildId: this.guildId.value(),
+      id: this.id.value(),
+      rating: this.rating.value(),
+      ratingTypeId: this.ratingTypeId.value(),
+      updatedAt: this.updatedAt.value().getTime(),
+      userId: this.userId.value(),
+    };
   }
 }
