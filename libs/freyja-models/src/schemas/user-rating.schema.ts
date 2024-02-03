@@ -1,11 +1,13 @@
-import { modelBaseColumns } from '@freyja-models/freyja-models/common/definitions/model-base';
-import guildTable from '@freyja-models/freyja-models/schemas/guild';
-import ratingTypeTable from '@freyja-models/freyja-models/schemas/rating-type';
-import userTable from '@freyja-models/freyja-models/schemas/user';
 import { bigint, pgTable, varchar } from 'drizzle-orm/pg-core';
 
+import { schemaBaseColumns } from '../common/schema';
+
+import guildTable from './guild.schema';
+import ratingTypeTable from './rating-type.schema';
+import userTable from './user.schema';
+
 const userRatingSchema = pgTable('user_rating', {
-  ...modelBaseColumns,
+  ...schemaBaseColumns,
   guildId: varchar('guild_id', { length: 26 })
     .notNull()
     .references(() => guildTable.id, { onDelete: 'cascade' }),

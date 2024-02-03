@@ -1,8 +1,9 @@
-import { modelBaseColumns } from '@freyja-models/freyja-models/common/definitions/model-base';
 import { pgTable, varchar } from 'drizzle-orm/pg-core';
 
+import { schemaBaseColumns } from '../common/schema';
+
 const userSchema = pgTable('user', {
-  ...modelBaseColumns,
+  ...schemaBaseColumns,
   discordId: varchar('discord_id', { length: 20 }).unique().notNull(),
 });
 

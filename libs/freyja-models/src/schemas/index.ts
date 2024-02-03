@@ -1,15 +1,15 @@
-import gameResultTable from './game-result';
-import guildTable from './guild';
-import ratingTypeTable from './rating-type';
-import userTable from './user';
-import userRatingTable from './user-rating';
-import userRatingHistoryTable from './user-rating-history';
+import gameResultSchema from './game-result.schema';
+import guildSchema from './guild.schema';
+import ratingTypeSchema from './rating-type.schema';
+import userRatingHistorySchema from './user-rating-history.schema';
+import userRatingSchema from './user-rating.schema';
+import userSchema from './user.schema';
 
 export {
-  gameResultTable,
-  guildTable,
-  ratingTypeTable,
-  userTable,
-  userRatingTable,
-  userRatingHistoryTable,
+  gameResultSchema,
+  guildSchema,
+  ratingTypeSchema,
+  userSchema,
+  userRatingSchema,
+  userRatingHistorySchema,
 };

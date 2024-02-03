@@ -1,10 +1,10 @@
 import { OptionalId } from '@freyja-models/freyja-models/entities/base-entity';
 import { Entity } from '@freyja-models/freyja-models/interfaces/entity.interface';
-import { guildTable as guildSchema } from '@freyja-models/freyja-models/schemas/guild';
 import { ulid } from 'ulidx';
 
 import { JsonSerializable } from '../../../../src/common/interfaces/core/core';
 import { ULID, Timestamp, SnowflakeId } from '../common/value-objects';
+import { guildSchema } from '../schemas';
 
 export default class Guild implements Entity {
   private constructor(
