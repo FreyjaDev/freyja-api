@@ -3,7 +3,7 @@ import gameResultTable from '@freyja-models/freyja-models/schemas/game-result';
 import userTable from '@freyja-models/freyja-models/schemas/user';
 import { bigint, pgTable, varchar } from 'drizzle-orm/pg-core';
 
-const userRatingHistoryTable = pgTable('user_rating_history', {
+const userRatingHistorySchema = pgTable('user_rating_history', {
   ...modelBaseColumns,
   gameResultId: varchar('game_result_id', { length: 26 })
     .notNull()
@@ -14,4 +14,4 @@ const userRatingHistoryTable = pgTable('user_rating_history', {
     .references(() => userTable.id),
 });
 
-export default userRatingHistoryTable;
+export default userRatingHistorySchema;
