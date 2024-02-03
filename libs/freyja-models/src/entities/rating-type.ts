@@ -4,7 +4,7 @@ import { Entity } from '@freyja-models/freyja-models/interfaces/entity.interface
 import { ulid } from 'ulidx';
 
 import { JsonSerializable } from '../../../../src/common/interfaces/core/core';
-import { ratingType as ratingTypeSchema } from '../models';
+import { ratingTypeTable as ratingTypeSchema } from '../models';
 
 export default class RatingType implements Entity {
   private constructor(

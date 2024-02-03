@@ -1,4 +1,4 @@
-import { user as userSchema } from '@freyja-models/freyja-models';
+import { userTable as userSchema } from '@freyja-models/freyja-models';
 import { OptionalId } from '@freyja-models/freyja-models/entities/base-entity';
 import { Entity } from '@freyja-models/freyja-models/interfaces/entity.interface';
 import { ulid } from 'ulidx';

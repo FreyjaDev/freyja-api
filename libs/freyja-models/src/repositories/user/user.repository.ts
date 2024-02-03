@@ -4,7 +4,7 @@ import { PostgresJsDatabase } from 'drizzle-orm/postgres-js';
 
 import { SnowflakeId } from '../../common/value-objects';
 import User from '../../entities/user';
-import { user as userSchema } from '../../models/user';
+import { userTable as userSchema } from '../../models/user';
 
 @Injectable()
 export class UserRepository {

@@ -4,7 +4,7 @@ import { ulid } from 'ulidx';
 
 import { JsonSerializable } from '../../../../src/common/interfaces/core/core';
 import { ULID, Timestamp, SnowflakeId } from '../common/value-objects';
-import { guild as guildSchema } from '../models/guild';
+import { guildTable as guildSchema } from '../models/guild';
 
 export default class Guild implements Entity {
   private constructor(

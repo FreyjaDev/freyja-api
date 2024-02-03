@@ -1,8 +1,15 @@
-import gameResult from './game-result';
-import guild from './guild';
-import ratingType from './rating-type';
-import user from './user';
-import userRating from './user-rating';
-import userRatingHistory from './user-rating-history';
+import gameResultTable from './game-result';
+import guildTable from './guild';
+import ratingTypeTable from './rating-type';
+import userTable from './user';
+import userRatingTable from './user-rating';
+import userRatingHistoryTable from './user-rating-history';
 
-export { gameResult, guild, ratingType, user, userRating, userRatingHistory };
+export {
+  gameResultTable,
+  guildTable,
+  ratingTypeTable,
+  userTable,
+  userRatingTable,
+  userRatingHistoryTable,
+};

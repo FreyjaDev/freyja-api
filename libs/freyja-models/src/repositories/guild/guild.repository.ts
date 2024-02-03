@@ -4,7 +4,7 @@ import { eq } from 'drizzle-orm';
 import { PostgresJsDatabase } from 'drizzle-orm/postgres-js';
 
 import { SnowflakeId } from '../../common/value-objects';
-import { guild as guildSchema } from '../../models/guild';
+import { guildTable as guildSchema } from '../../models/guild';
 
 @Injectable()
 export class GuildRepository {
