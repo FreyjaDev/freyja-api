@@ -1,4 +1,4 @@
-import { Unique, ValueObject } from './value-object';
+import { Unique, ValueObject } from '../value-object';
 
 export default class GeneralString extends ValueObject<string> {
   [Unique]: void;

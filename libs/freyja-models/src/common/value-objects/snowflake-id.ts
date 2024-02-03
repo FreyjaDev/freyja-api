@@ -1,4 +1,4 @@
-import { ValueObject, Unique } from './value-object';
+import { ValueObject, Unique } from '../value-object';
 
 /**
  * Snowflake ID を表すクラス。
