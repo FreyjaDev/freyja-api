@@ -1,8 +1,8 @@
-import { SnowflakeId } from '@freyja-models/freyja-models';
 import { Inject, Injectable } from '@nestjs/common';
-import { eq } from 'drizzle-orm';
+import { and, eq } from 'drizzle-orm';
 import { PostgresJsDatabase } from 'drizzle-orm/postgres-js';
 
+import { SnowflakeId, ULID } from '../../common/value-objects';
 import { RatingType } from '../../entities';
 import { guildSchema, ratingTypeSchema } from '../../schemas';
 
@@ -33,6 +33,36 @@ export class RatingTypeRepository {
         name: record.ratingType.name,
         updatedAt: new Date(record.ratingType.updatedAt),
       });
+    });
+  }
+
+  async findById(
+    guildId: SnowflakeId,
+    ratingTypeId: ULID,
+  ): Promise<RatingType | undefined> {
+    const records = await this.database
+      .select({ ratingType: ratingTypeSchema })
+      .from(ratingTypeSchema)
+      .innerJoin(guildSchema, eq(ratingTypeSchema.guildId, guildSchema.id))
+      .where(
+        and(
+          eq(ratingTypeSchema.id, ratingTypeId.value()),
+          eq(guildSchema.discordId, guildId.value()),
+        ),
+      );
+
+    if (records.length <= 0) {
+      return undefined;
+    }
+
+    const ratingType = records[0].ratingType;
+
+    return RatingType.create({
+      createdAt: new Date(ratingType.createdAt),
+      guildId: ratingType.guildId,
+      id: ratingType.id,
+      name: ratingType.name,
+      updatedAt: new Date(ratingType.updatedAt),
     });
   }
 

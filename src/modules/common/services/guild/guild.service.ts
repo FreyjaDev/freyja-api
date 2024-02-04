@@ -1,4 +1,4 @@
-import { SnowflakeId } from '@freyja-models/freyja-models';
+import { SnowflakeId, ULID } from '@freyja-models/freyja-models';
 import { Guild, RatingType, User } from '@freyja-models/freyja-models/entities';
 import { GuildRepository } from '@freyja-models/freyja-models/repositories/guild/guild.repository';
 import { RatingTypeRepository } from '@freyja-models/freyja-models/repositories/rating-type/rating-type.repository';
@@ -75,6 +75,20 @@ export class GuildService {
     return await this.guildRepository.findBySnowflakeId(
       new SnowflakeId(guildId),
     );
+  }
+
+  async findRatingTypeByRatingTypeId(
+    guild: Guild,
+    ratingTypeId: string,
+  ): Promise<RatingType | undefined> {
+    return await this.ratingTypeRepository.findById(
+      guild.discordId,
+      ULID.of(ratingTypeId),
+    );
+  }
+
+  async deleteRatingType(ratingType: RatingType): Promise<void> {
+    await this.ratingTypeRepository.delete(ratingType);
   }
 
   private async createGuildUsers(userIds: string[]): Promise<void> {

@@ -4,6 +4,7 @@ import {
   Body,
   ConflictException,
   Controller,
+  Delete,
   Get,
   HttpCode,
   InternalServerErrorException,
@@ -79,5 +80,29 @@ export class GuildController {
     const ratingTypes = await this.guildService.getRatingTypes(guild);
 
     return ratingTypes.map((ratingType) => ratingType.unwrap());
+  }
+
+  @Delete(':guildId/rating-types/:ratingTypeId')
+  @HttpCode(204)
+  async deleteRatingType(
+    @Param('guildId') guildId: string,
+    @Param('ratingTypeId') ratingTypeId: string,
+  ): Promise<void> {
+    const guild = await this.guildService.findGuildByGuildId(guildId);
+
+    if (guild === undefined) {
+      throw new NotFoundException();
+    }
+
+    const ratingType = await this.guildService.findRatingTypeByRatingTypeId(
+      guild,
+      ratingTypeId,
+    );
+
+    if (ratingType === undefined) {
+      throw new NotFoundException();
+    }
+
+    await this.guildService.deleteRatingType(ratingType);
   }
 }
