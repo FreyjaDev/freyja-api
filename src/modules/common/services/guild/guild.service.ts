@@ -56,13 +56,19 @@ export class GuildService {
     return newGuild;
   }
 
-  async createRatingType(guild: Guild, name: string): Promise<void> {
+  async createRatingType(guild: Guild, name: string): Promise<RatingType> {
     const ratingType = RatingType.create({
       guildId: guild.id.value(),
       name,
     });
 
     await this.ratingTypeRepository.save(ratingType);
+
+    return ratingType;
+  }
+
+  async getRatingTypes(guild: Guild): Promise<RatingType[]> {
+    return await this.ratingTypeRepository.findAllByGuildId(guild.discordId);
   }
 
   async findGuildByGuildId(guildId: string): Promise<Guild | undefined> {

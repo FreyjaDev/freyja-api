@@ -4,6 +4,7 @@ import {
   Body,
   ConflictException,
   Controller,
+  Get,
   HttpCode,
   InternalServerErrorException,
   NotFoundException,
@@ -49,7 +50,7 @@ export class GuildController {
   async createRatingType(
     @Param('guildId') guildId: string,
     @Body() createRatingTypeDto: CreateRatingTypeDto,
-  ): Promise<void> {
+  ): Promise<JsonSerializable> {
     // Guild の存在確認
     const guild = await this.guildService.findGuildByGuildId(guildId);
 
@@ -57,6 +58,27 @@ export class GuildController {
       throw new NotFoundException();
     }
 
-    await this.guildService.createRatingType(guild, createRatingTypeDto.name);
+    const ratingType = await this.guildService.createRatingType(
+      guild,
+      createRatingTypeDto.name,
+    );
+
+    return ratingType.unwrap();
+  }
+
+  @Get(':guildId/rating-types')
+  @HttpCode(200)
+  async getRatingTypes(
+    @Param('guildId') guildId: string,
+  ): Promise<JsonSerializable[]> {
+    const guild = await this.guildService.findGuildByGuildId(guildId);
+
+    if (guild === undefined) {
+      throw new NotFoundException();
+    }
+
+    const ratingTypes = await this.guildService.getRatingTypes(guild);
+
+    return ratingTypes.map((ratingType) => ratingType.unwrap());
   }
 }
