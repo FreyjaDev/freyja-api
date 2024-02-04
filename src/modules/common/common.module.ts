@@ -7,11 +7,10 @@ import { Logger, Module } from '@nestjs/common';
 import { DiscordService } from '../../common/shared/services/discord/discord.service';
 
 import { GuildController } from './controllers/guild/guild.controller';
-import { UserController } from './controllers/user/user.controller';
 import { GuildService } from './services/guild/guild.service';
 
 @Module({
-  controllers: [GuildController, UserController],
+  controllers: [GuildController],
   imports: [
     FreyjaModelsModule.forFeature([
       GuildRepository,
