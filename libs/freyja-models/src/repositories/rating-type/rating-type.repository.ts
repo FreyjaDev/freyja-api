@@ -27,11 +27,11 @@ export class RatingTypeRepository {
 
     return records.map((record) => {
       return RatingType.create({
-        createdAt: record.ratingType.createdAt,
+        createdAt: new Date(record.ratingType.createdAt),
         guildId: record.ratingType.guildId,
         id: record.ratingType.id,
         name: record.ratingType.name,
-        updatedAt: record.ratingType.updatedAt,
+        updatedAt: new Date(record.ratingType.updatedAt),
       });
     });
   }

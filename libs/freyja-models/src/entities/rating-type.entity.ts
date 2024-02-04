@@ -29,11 +29,11 @@ export default class RatingType implements Entity {
 
   unwrap(): JsonSerializable {
     return {
-      createdAt: this.createdAt.value,
-      guildId: this.guildId.value,
-      id: this.id.value,
-      name: this.name.value,
-      updatedAt: this.updatedAt.value,
+      createdAt: this.createdAt.value(),
+      guildId: this.guildId.value(),
+      id: this.id.value(),
+      name: this.name.value(),
+      updatedAt: this.updatedAt.value(),
     };
   }
 }
