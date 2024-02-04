@@ -10,7 +10,6 @@ import {
   NotFoundException,
   Param,
   Post,
-  UsePipes,
 } from '@nestjs/common';
 
 import { GuildAlreadyInitializedException } from '../../../../common/error';
@@ -45,11 +44,11 @@ export class GuildController {
   }
 
   @Post(':guildId/rating-types')
-  @UsePipes(new ZodValidationPipe(createRatingTypeSchema))
   @HttpCode(201)
   async createRatingType(
     @Param('guildId') guildId: string,
-    @Body() createRatingTypeDto: CreateRatingTypeDto,
+    @Body(new ZodValidationPipe(createRatingTypeSchema))
+    createRatingTypeDto: CreateRatingTypeDto,
   ): Promise<JsonSerializable> {
     // Guild の存在確認
     const guild = await this.guildService.findGuildByGuildId(guildId);
