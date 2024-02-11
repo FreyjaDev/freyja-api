@@ -16,6 +16,11 @@ import {
 import { GuildAlreadyInitializedException } from '../../../../common/error';
 import { ZodValidationPipe } from '../../pipes/zod-validation.pipe';
 import { GuildService } from '../../services/guild/guild.service';
+import { UserService } from '../../services/user/user.service';
+import {
+  CreateGameResultDto,
+  createGameResultSchema,
+} from '../../validators/create-game-result.validator';
 import {
   CreateRatingTypeDto,
   createRatingTypeSchema,
@@ -23,7 +28,10 @@ import {
 
 @Controller('guild')
 export class GuildController {
-  constructor(private readonly guildService: GuildService) {}
+  constructor(
+    private readonly guildService: GuildService,
+    private readonly userService: UserService,
+  ) {}
 
   @Post(':guildId')
   @HttpCode(201)
@@ -104,5 +112,38 @@ export class GuildController {
     }
 
     await this.guildService.deleteRatingType(ratingType);
+  }
+
+  @Post(':guildId/rating-types/:ratingTypeId/game-results')
+  @HttpCode(201)
+  async createGameResult(
+    @Param('guildId') guildId: string,
+    @Param('ratingTypeId') ratingTypeId: string,
+    @Body(new ZodValidationPipe(createGameResultSchema))
+    createGameResultDto: CreateGameResultDto,
+  ) {
+    const guild = await this.guildService.findGuildByGuildId(guildId);
+
+    if (guild === undefined) {
+      throw new NotFoundException();
+    }
+
+    const ratingType = await this.guildService.findRatingTypeByRatingTypeId(
+      guild,
+      ratingTypeId,
+    );
+
+    if (ratingType === undefined) {
+      throw new NotFoundException();
+    }
+
+    const winner = await this.userService.findOrCreateUserByUserId(
+      createGameResultDto.winnerId,
+    );
+    const loser = await this.userService.findOrCreateUserByUserId(
+      createGameResultDto.loserId,
+    );
+
+    await this.guildService.createGameResult(guild, ratingType, winner, loser);
   }
 }

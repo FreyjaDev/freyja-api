@@ -8,6 +8,7 @@ import { DiscordService } from '../../common/shared/services/discord/discord.ser
 
 import { GuildController } from './controllers/guild/guild.controller';
 import { GuildService } from './services/guild/guild.service';
+import { UserService } from './services/user/user.service';
 
 @Module({
   controllers: [GuildController],
@@ -18,6 +19,6 @@ import { GuildService } from './services/guild/guild.service';
       RatingTypeRepository,
     ]),
   ],
-  providers: [GuildService, Logger, DiscordService],
+  providers: [GuildService, Logger, DiscordService, UserService],
 })
 export class CommonModule {}

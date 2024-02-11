@@ -8,6 +8,7 @@ import { ulid } from 'ulidx';
 
 import { GuildAlreadyInitializedException } from '../../../../common/error';
 import { DiscordService } from '../../../../common/shared/services/discord/discord.service';
+import { UserService } from '../user/user.service';
 
 @Injectable()
 export class GuildService {
@@ -15,6 +16,7 @@ export class GuildService {
     private readonly discordService: DiscordService,
     private readonly guildRepository: GuildRepository,
     private readonly userRepository: UserRepository,
+    private readonly userService: UserService,
     private readonly ratingTypeRepository: RatingTypeRepository,
   ) {}
 
@@ -89,6 +91,41 @@ export class GuildService {
 
   async deleteRatingType(ratingType: RatingType): Promise<void> {
     await this.ratingTypeRepository.delete(ratingType);
+  }
+
+  async createGameResult(
+    guild: Guild,
+    ratingType: RatingType,
+    winner: User,
+    loser: User,
+  ): Promise<void> {
+    const winnerRating = await this.userService.findOrCreateUserRating(
+      guild,
+      ratingType,
+      winner,
+    );
+    const loserRating = await this.userService.findOrCreateUserRating(
+      guild,
+      ratingType,
+      loser,
+    );
+
+    const ratingVariation = this.calculateRating(
+      winnerRating.rating.value(),
+      loserRating.rating.value(),
+    );
+
+    console.log(ratingVariation);
+  }
+
+  private calculateRating(winnerRating: number, loserRating: number): number {
+    return this.clampRating(
+      32 / 10 ** ((winnerRating - loserRating) / 400) + 1,
+    );
+  }
+
+  private clampRating(rating: number): number {
+    return Math.max(2, Math.min(32, rating));
   }
 
   private async createGuildUsers(userIds: string[]): Promise<void> {

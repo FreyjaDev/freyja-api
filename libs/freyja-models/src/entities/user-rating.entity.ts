@@ -32,6 +32,16 @@ export default class UserRating implements Entity {
     );
   }
 
+  private calculateRating(winnerRating: number, loserRating: number): number {
+    return this.clampRating(
+      32 / 10 ** ((winnerRating - loserRating) / 400) + 1,
+    );
+  }
+
+  private clampRating(rating: number): number {
+    return Math.max(2, Math.min(32, rating));
+  }
+
   unwrap(): JsonSerializable {
     return {
       createdAt: this.createdAt.value().getTime(),
