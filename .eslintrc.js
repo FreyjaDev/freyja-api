@@ -41,7 +41,6 @@ module.exports = {
       }
     ],
     "import/no-duplicates": "error",
-    "sort-keys-fix/sort-keys-fix": "error",
     "typescript-sort-keys/interface": "error",
     "unused-imports/no-unused-imports": "error"
   },
