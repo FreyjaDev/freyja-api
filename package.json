@@ -6,6 +6,7 @@
     "dev": "bun run --watch src/index.ts",
     "build": "bun build src/index.ts --outdir ./build",
     "lint": "eslint --ext .ts src",
+    "fmt": "prettier --write src/**/*.ts",
     "prepare": "husky"
   },
   "dependencies": {
