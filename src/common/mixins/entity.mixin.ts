@@ -1,22 +1,10 @@
 import { Cacheable } from './cacheable.mixin';
+import { JsonValue } from '../interfaces/json.interface';
 
 type Primitive = string | number | boolean | undefined | null | bigint;
 type PropTypes = Primitive | Date | Array<PropTypes>;
 type Prop<T> = { [P in keyof T]: PropTypes };
 type Props<T> = Prop<T> | (Prop<T> & { [P in keyof T]: Entity<Prop<T>> });
-
-type JsonValue =
-  | string
-  | number
-  | bigint
-  | boolean
-  | null
-  | JsonArray
-  | JsonObject;
-interface JsonObject {
-  [key: string]: JsonValue;
-}
-interface JsonArray extends Array<JsonValue> {}
 
 export abstract class Entity<T extends Props<T>> extends Cacheable<T> {
   constructor(protected props: T) {
