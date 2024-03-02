@@ -10,7 +10,7 @@
     "prepare": "husky"
   },
   "dependencies": {
-    "drizzle": "^1.4.0",
+    "drizzle-orm": "^0.29.4",
     "elysia": "latest"
   },
   "devDependencies": {
