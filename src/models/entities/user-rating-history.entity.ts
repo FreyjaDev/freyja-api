@@ -3,7 +3,7 @@ import { Entity } from '../../common/mixins/entity.mixin';
 interface UserRatingHistoryProps {
   id: string;
   userRatingId: string;
-  gameResultId: string;
+  gameResultId?: string;
   rating: number;
   createdAt: Date;
   updatedAt: Date;

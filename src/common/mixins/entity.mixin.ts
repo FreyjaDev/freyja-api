@@ -2,7 +2,7 @@ import { Cacheable } from './cacheable.mixin';
 
 type Primitive = string | number | boolean | symbol | undefined | null | bigint;
 type PropTypes = Primitive | Date;
-type Prop<T> = Record<keyof T, PropTypes>;
+type Prop<T> = Partial<Record<keyof T, PropTypes>>;
 
 export abstract class Entity<
   T extends Prop<T> | (Prop<T> & Record<keyof T, Entity<Prop<T>>>),
