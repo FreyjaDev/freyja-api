@@ -27,4 +27,15 @@ export class GameResult extends Entity<GameResultProps> {
   get updatedAt() {
     return this.props.updatedAt;
   }
+
+  override toDto() {
+    return {
+      id: this.id,
+      guildId: this.guildId,
+      winUserId: this.winUserId,
+      loseUserId: this.loseUserId,
+      createdAt: this.createdAt.toISOString(),
+      updatedAt: this.updatedAt.toISOString(),
+    };
+  }
 }

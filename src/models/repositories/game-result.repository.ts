@@ -2,17 +2,10 @@ import { db as defaultDb } from '../../common/database';
 import { gameResultSchema } from '../schemas';
 import { and, desc, eq, or } from 'drizzle-orm';
 import { GameResult } from '../entities/game-result.entity';
+import { singleton } from 'tsyringe';
 
+@singleton()
 export class GameResultRepository {
-  private static _instance: GameResultRepository;
-  private constructor() {}
-  static get instance() {
-    if (!this._instance) {
-      this._instance = new GameResultRepository();
-    }
-    return this._instance;
-  }
-
   async findById(
     id: string,
     db: typeof defaultDb = defaultDb,
