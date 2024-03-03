@@ -3,7 +3,6 @@ import {
   getGameResults,
   postGameResult,
 } from './controllers/guilds/games.controller';
-import 'reflect-metadata';
 
 const app = new Elysia()
   .post('/guilds/:guildId/users', () => {})
