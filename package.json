@@ -12,7 +12,8 @@
   "dependencies": {
     "drizzle-orm": "^0.29.4",
     "elysia": "latest",
-    "postgres": "^3.4.3"
+    "postgres": "^3.4.3",
+    "tsyringe": "^4.8.0"
   },
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "^7.0.2",
