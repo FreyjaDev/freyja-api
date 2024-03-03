@@ -13,6 +13,7 @@
     "drizzle-orm": "^0.29.4",
     "elysia": "latest",
     "postgres": "^3.4.3",
+    "reflect-metadata": "^0.2.1",
     "tsyringe": "^4.8.0"
   },
   "devDependencies": {
