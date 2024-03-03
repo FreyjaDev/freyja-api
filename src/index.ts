@@ -1,3 +1,5 @@
+import 'core-js';
+import 'reflect-metadata';
 import { Elysia, t } from 'elysia';
 import {
   getGameResults,

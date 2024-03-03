@@ -4,11 +4,11 @@ import { drizzle } from 'drizzle-orm/postgres-js';
 import { migrate as drizzleMigrate } from 'drizzle-orm/postgres-js/migrator';
 import * as schema from '../models/schemas';
 
-const userName = process.env.FREYJA_DB_USER;
-const password = process.env.FREYJA_DB_PASSWORD;
-const host = process.env.FREYJA_DB_HOST;
-const port = process.env.FREYJA_DB_PORT;
-const database = process.env.FREYJA_DB_NAME;
+const userName = process.env.POSTGRES_USER;
+const password = process.env.POSTGRES_PASSWORD;
+const host = process.env.POSTGRES_HOST;
+const port = process.env.POSTGRES_PORT;
+const database = process.env.POSTGRES_NAME;
 
 const connectionUrl = `postgres://${userName}:${password}@${host}:${port}/${database}`;
 const queryClient = postgres(connectionUrl);
