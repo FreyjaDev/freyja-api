@@ -1,4 +1,7 @@
 import { Entity } from '../../common/mixins/entity.mixin';
+import { uuidv7 } from 'uuidv7';
+import { UserRating } from './user-rating.entity';
+import { GameResult } from './game-result.entity';
 
 interface UserRatingHistoryProps {
   id: string;
@@ -40,5 +43,30 @@ class UserRatingHistory extends Entity<UserRatingHistoryProps> {
     };
   }
 }
+
+export const userRatingHistory = (data: {
+  id?: string;
+  userRating: UserRating | string;
+  gameResult?: GameResult | string;
+  rating: number;
+  createdAt?: Date;
+  updatedAt?: Date;
+}) => {
+  return new UserRatingHistory({
+    id: data.id ?? uuidv7(),
+    userRatingId:
+      typeof data.userRating === 'string'
+        ? data.userRating
+        : data.userRating.id,
+    gameResultId: data.gameResult
+      ? typeof data.gameResult === 'string'
+        ? data.gameResult
+        : data.gameResult.id
+      : undefined,
+    rating: data.rating,
+    createdAt: data.createdAt ?? new Date(),
+    updatedAt: data.updatedAt ?? new Date(),
+  });
+};
 
 export type { UserRatingHistory };
