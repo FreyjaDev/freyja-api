@@ -9,7 +9,7 @@ interface UserRatingProps {
   updatedAt: Date;
 }
 
-export class UserRating extends Entity<UserRatingProps> {
+class UserRating extends Entity<UserRatingProps> {
   get id() {
     return this.props.id;
   }
@@ -28,4 +28,17 @@ export class UserRating extends Entity<UserRatingProps> {
   get updatedAt() {
     return this.props.updatedAt;
   }
+
+  override toDto() {
+    return {
+      id: this.id,
+      userId: this.userId,
+      guildId: this.guildId,
+      rating: this.rating,
+      createdAt: this.createdAt.toISOString(),
+      updatedAt: this.updatedAt.toISOString(),
+    };
+  }
 }
+
+export type { UserRating };

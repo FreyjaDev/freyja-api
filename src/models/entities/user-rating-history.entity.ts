@@ -9,7 +9,7 @@ interface UserRatingHistoryProps {
   updatedAt: Date;
 }
 
-export class UserRatingHistory extends Entity<UserRatingHistoryProps> {
+class UserRatingHistory extends Entity<UserRatingHistoryProps> {
   get id() {
     return this.props.id;
   }
@@ -28,4 +28,17 @@ export class UserRatingHistory extends Entity<UserRatingHistoryProps> {
   get updatedAt() {
     return this.props.updatedAt;
   }
+
+  override toDto() {
+    return {
+      id: this.id,
+      userRatingId: this.userRatingId,
+      gameResultId: this.gameResultId ?? null,
+      rating: this.rating,
+      createdAt: this.createdAt.toISOString(),
+      updatedAt: this.updatedAt.toISOString(),
+    };
+  }
 }
+
+export type { UserRatingHistory };
