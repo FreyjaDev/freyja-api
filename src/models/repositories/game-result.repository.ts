@@ -1,7 +1,7 @@
 import { db as defaultDb } from '../../common/database';
 import { gameResultSchema } from '../schemas';
 import { and, desc, eq, or } from 'drizzle-orm';
-import { GameResult } from '../entities/game-result.entity';
+import { gameResult, GameResult } from '../entities/game-result.entity';
 import { singleton } from 'tsyringe';
 
 @singleton()
@@ -20,11 +20,11 @@ export class GameResultRepository {
     }
     const data = records[0];
 
-    return new GameResult({
+    return gameResult({
       id: data.id,
       guildId: data.guildId,
-      winUserId: data.winUserId,
-      loseUserId: data.loseUserId,
+      winUser: data.winUserId,
+      loseUser: data.loseUserId,
       createdAt: data.createdAt,
       updatedAt: data.updatedAt,
     });
@@ -44,16 +44,15 @@ export class GameResultRepository {
       .limit(limit)
       .offset(offset);
 
-    return records.map(
-      (data) =>
-        new GameResult({
-          id: data.id,
-          guildId: data.guildId,
-          winUserId: data.winUserId,
-          loseUserId: data.loseUserId,
-          createdAt: data.createdAt,
-          updatedAt: data.updatedAt,
-        }),
+    return records.map((data) =>
+      gameResult({
+        id: data.id,
+        guildId: data.guildId,
+        winUser: data.winUserId,
+        loseUser: data.loseUserId,
+        createdAt: data.createdAt,
+        updatedAt: data.updatedAt,
+      }),
     );
   }
 
@@ -80,16 +79,15 @@ export class GameResultRepository {
       .limit(limit)
       .offset(offset);
 
-    return records.map(
-      (data) =>
-        new GameResult({
-          id: data.id,
-          guildId: data.guildId,
-          winUserId: data.winUserId,
-          loseUserId: data.loseUserId,
-          createdAt: data.createdAt,
-          updatedAt: data.updatedAt,
-        }),
+    return records.map((data) =>
+      gameResult({
+        id: data.id,
+        guildId: data.guildId,
+        winUser: data.winUserId,
+        loseUser: data.loseUserId,
+        createdAt: data.createdAt,
+        updatedAt: data.updatedAt,
+      }),
     );
   }
 
