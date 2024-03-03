@@ -12,8 +12,8 @@ export const userRatingSchema = pgTable(
   'user_rating',
   {
     id: uuid('id').primaryKey(),
-    userId: varchar('user_id', { length: 20 }),
-    guildId: varchar('guild_id', { length: 20 }),
+    userId: varchar('user_id', { length: 20 }).notNull(),
+    guildId: varchar('guild_id', { length: 20 }).notNull(),
     rating: integer('rating').notNull(),
     createdAt: timestamp('created_at').defaultNow().notNull(),
     updatedAt: timestamp('updated_at').defaultNow().notNull(),
