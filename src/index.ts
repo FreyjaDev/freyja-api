@@ -13,11 +13,11 @@ const app = new Elysia()
   .get(
     '/guilds/:guildId/games',
     ({ params: { guildId }, query: { limit, offset } }) =>
-      getGameResults(guildId, limit, offset),
+      getGameResults(guildId, limit ?? 50, offset ?? 0),
     {
       query: t.Object({
-        limit: t.Integer({ default: 50 }),
-        offset: t.Integer({ default: 0 }),
+        limit: t.Optional(t.Integer()),
+        offset: t.Optional(t.Integer()),
       }),
     },
   )
@@ -35,11 +35,11 @@ const app = new Elysia()
   .get(
     '/guilds/:guildId/leaderboard',
     ({ params: { guildId }, query: { limit, offset } }) =>
-      getGuildLeaderboard(guildId, limit, offset),
+      getGuildLeaderboard(guildId, limit ?? 50, offset ?? 0),
     {
       query: t.Object({
-        limit: t.Integer({ default: 50 }),
-        offset: t.Integer({ default: 0 }),
+        limit: t.Optional(t.Integer()),
+        offset: t.Optional(t.Integer()),
       }),
     },
   )
