@@ -5,13 +5,12 @@ import {
   getGameResults,
   postGameResult,
 } from './controllers/guilds/games.controller';
+import { getGuildMemberRating } from './controllers/guilds/users.controller';
 
 const app = new Elysia()
-  .post('/guilds/:guildId/users', () => {})
-  .get('/guilds/:guildId/users/@me', () => {})
-  .get('/guilds/:guildId/users/:userId', () => {})
-  .get('/guilds/:guildId/users/@me/games', () => {})
-  .get('/guilds/:guildId/users/:userId/games', () => {})
+  .get('/guilds/:guildId/users/:userId', ({ params: { guildId, userId } }) =>
+    getGuildMemberRating(guildId, userId),
+  )
   .get(
     '/guilds/:guildId/games',
     ({ params: { guildId }, query: { limit, offset } }) =>
