@@ -5,4 +5,4 @@ services:
       context: .
       dockerfile: ./Dockerfile
       target: prerelease
-    image: prerelease
+    image: migration:latest
