@@ -1,7 +1,7 @@
 import { userRating, UserRating } from '../entities/user-rating.entity';
 import { db as defaultDb } from '../../common/database';
 import { userRatingSchema } from '../schemas';
-import { and, eq } from 'drizzle-orm';
+import { and, desc, eq } from 'drizzle-orm';
 
 export const userRatingRepository = {
   findById: async (id: string, db: typeof defaultDb = defaultDb) => {
@@ -50,6 +50,31 @@ export const userRatingRepository = {
       createdAt: records[0].createdAt,
       updatedAt: records[0].updatedAt,
     });
+  },
+  getGuildMemberRatingsOrderByRating: async (
+    guildId: string,
+    limit: number,
+    offset: number,
+    db: typeof defaultDb = defaultDb,
+  ): Promise<UserRating[]> => {
+    const records = await db
+      .select()
+      .from(userRatingSchema)
+      .where(eq(userRatingSchema.guildId, guildId))
+      .orderBy(desc(userRatingSchema.rating))
+      .limit(limit)
+      .offset(offset);
+
+    return records.map((record) =>
+      userRating({
+        id: record.id,
+        userId: record.userId,
+        guildId: record.guildId,
+        rating: record.rating,
+        createdAt: record.createdAt,
+        updatedAt: record.updatedAt,
+      }),
+    );
   },
   save: async (userRating: UserRating, db: typeof defaultDb = defaultDb) => {
     await db

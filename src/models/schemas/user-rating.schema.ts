@@ -20,6 +20,6 @@ export const userRatingSchema = pgTable(
   },
   (table) => ({
     uniqueRating: unique().on(table.guildId, table.userId),
-    ratingIndex: index().on(table.guildId, table.userId, table.rating),
+    ratingIndex: index().on(table.guildId, table.rating),
   }),
 );
