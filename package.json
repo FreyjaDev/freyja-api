@@ -8,6 +8,7 @@
     "lint": "eslint --ext .ts src",
     "fmt": "prettier --write src/**/*.ts",
     "migrate:gen": "bun drizzle-kit generate:pg",
+    "migrate:run": "bun run scripts/migrate.ts",
     "prepare": "husky"
   },
   "dependencies": {
