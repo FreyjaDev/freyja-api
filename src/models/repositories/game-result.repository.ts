@@ -83,4 +83,24 @@ export const gameResultRepository = {
       }),
     );
   },
+  save: async (gameResult: GameResult, db: typeof defaultDb = defaultDb) => {
+    await db
+      .insert(gameResultSchema)
+      .values({
+        id: gameResult.id,
+        guildId: gameResult.guildId,
+        winUserId: gameResult.winUserId,
+        loseUserId: gameResult.loseUserId,
+        createdAt: gameResult.createdAt,
+        updatedAt: gameResult.updatedAt,
+      })
+      .onConflictDoUpdate({
+        set: {
+          winUserId: gameResult.winUserId,
+          loseUserId: gameResult.loseUserId,
+          updatedAt: gameResult.updatedAt,
+        },
+        target: [gameResultSchema.id],
+      });
+  },
 };

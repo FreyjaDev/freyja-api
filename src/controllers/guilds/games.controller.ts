@@ -6,15 +6,19 @@ import { guildGameResultService } from '../../services/guild-game-result.service
  * @param winUserId Discord user ID of the winner
  * @param loseUserId Discord user ID of the loser
  */
-export const postGameResult = (
+export const postGameResult = async (
   guildId: string,
   winUserId: string,
   loseUserId: string,
 ) => {
-  // TODO: Implement this function
-  console.log('guildId', guildId);
-  console.log('winUserId', winUserId);
-  console.log('loseUserId', loseUserId);
+  const { winUser, loseUser } =
+    await guildGameResultService.postGuildGameResult(
+      guildId,
+      winUserId,
+      loseUserId,
+    );
+
+  return { winUser: winUser.toDto(), loseUser: loseUser.toDto() };
 };
 
 /**

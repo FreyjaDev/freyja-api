@@ -1,6 +1,10 @@
 import { gameResultRepository } from '../models/repositories/game-result.repository';
 import { userRatingRepository } from '../models/repositories/user-rating.repository';
 import { UserRating, userRating } from '../models/entities/user-rating.entity';
+import { userRatingHistory } from '../models/entities/user-rating-history.entity';
+import { db } from '../common/database';
+import { userRatingHistoryRepository } from '../models/repositories/user-rating-history.repository';
+import { gameResult } from '../models/entities/game-result.entity';
 
 export const guildGameResultService = {
   getGuildGameResults: async (
@@ -20,7 +24,7 @@ export const guildGameResultService = {
     guildId: string,
     winUserId: string,
     loseUserId: string,
-  ) => {
+  ): Promise<{ winUser: UserRating; loseUser: UserRating }> => {
     const winUser =
       (await userRatingRepository.findByGuildIdAndUserId(guildId, winUserId)) ??
       (await createUserRating(guildId, winUserId));
@@ -35,6 +39,33 @@ export const guildGameResultService = {
 
     winUser.increaseRating(ratingDiff);
     loseUser.decreaseRating(ratingDiff);
+
+    const result = gameResult({
+      guildId,
+      winUser,
+      loseUser,
+    });
+
+    const winUserHistory = userRatingHistory({
+      userRating: winUser,
+      rating: winUser.rating,
+      gameResult: result,
+    });
+    const loseUserHistory = userRatingHistory({
+      userRating: loseUser,
+      rating: loseUser.rating,
+      gameResult: result,
+    });
+
+    await db.transaction(async (tx) => {
+      await userRatingRepository.save(winUser, tx);
+      await userRatingRepository.save(loseUser, tx);
+      await gameResultRepository.save(result, tx);
+      await userRatingHistoryRepository.save(winUserHistory, tx);
+      await userRatingHistoryRepository.save(loseUserHistory, tx);
+    });
+
+    return { winUser, loseUser };
   },
 };
 
@@ -47,8 +78,15 @@ const createUserRating = async (
     userId,
     rating: 1500,
   });
+  const history = userRatingHistory({
+    userRating: rating,
+    rating: rating.rating,
+  });
 
-  await userRatingRepository.save(rating);
+  await db.transaction(async (tx) => {
+    await userRatingRepository.save(rating, tx);
+    await userRatingHistoryRepository.save(history, tx);
+  });
 
   return rating;
 };
