@@ -30,6 +30,16 @@ class UserRating extends Entity<UserRatingProps> {
     return this.props.updatedAt;
   }
 
+  increaseRating(amount: number) {
+    this.props.rating += amount;
+    this.props.updatedAt = new Date();
+  }
+
+  decreaseRating(amount: number) {
+    this.props.rating -= amount;
+    this.props.updatedAt = new Date();
+  }
+
   override toDto() {
     return {
       id: this.id,

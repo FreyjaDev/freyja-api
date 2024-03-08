@@ -1,5 +1,4 @@
-import { container } from 'tsyringe';
-import { GuildGameResultService } from '../../services/guild-game-result.service';
+import { guildGameResultService } from '../../services/guild-game-result.service';
 
 /**
  * Post a game result
@@ -29,8 +28,6 @@ export const getGameResults = async (
   limit: number,
   offset: number,
 ) => {
-  const guildGameResultService = container.resolve(GuildGameResultService);
-
   return await guildGameResultService.getGuildGameResults(
     guildId,
     limit,

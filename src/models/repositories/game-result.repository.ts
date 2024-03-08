@@ -2,14 +2,9 @@ import { db as defaultDb } from '../../common/database';
 import { gameResultSchema } from '../schemas';
 import { and, desc, eq, or } from 'drizzle-orm';
 import { gameResult, GameResult } from '../entities/game-result.entity';
-import { singleton } from 'tsyringe';
 
-@singleton()
-export class GameResultRepository {
-  async findById(
-    id: string,
-    db: typeof defaultDb = defaultDb,
-  ): Promise<GameResult | undefined> {
+export const gameResultRepository = {
+  findById: async (id: string, db: typeof defaultDb = defaultDb) => {
     const records = await db
       .select()
       .from(gameResultSchema)
@@ -28,14 +23,13 @@ export class GameResultRepository {
       createdAt: data.createdAt,
       updatedAt: data.updatedAt,
     });
-  }
-
-  async findByGuildId(
+  },
+  findByGuildId: async (
     guildId: string,
     limit: number,
     offset: number,
     db: typeof defaultDb = defaultDb,
-  ): Promise<GameResult[]> {
+  ): Promise<GameResult[]> => {
     const records = await db
       .select()
       .from(gameResultSchema)
@@ -54,15 +48,14 @@ export class GameResultRepository {
         updatedAt: data.updatedAt,
       }),
     );
-  }
-
-  async findByGuildIdAndUserId(
+  },
+  findByGuildIdAndUserId: async (
     guildId: string,
     userId: string,
     limit: number,
     offset: number,
     db: typeof defaultDb = defaultDb,
-  ): Promise<GameResult[]> {
+  ): Promise<GameResult[]> => {
     const records = await db
       .select()
       .from(gameResultSchema)
@@ -89,7 +82,5 @@ export class GameResultRepository {
         updatedAt: data.updatedAt,
       }),
     );
-  }
-
-  save() {}
-}
+  },
+};
