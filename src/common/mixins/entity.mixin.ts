@@ -1,6 +1,6 @@
 import { Cacheable } from './cacheable.mixin';
 import { Prop } from '../interfaces/props.interface';
-import { JsonValue } from '../interfaces/json.interface';
+import { JsonSerializable } from '../utils/json/props-converter';
 
 export abstract class Entity<T extends Prop<T>> extends Cacheable<T> {
   constructor(protected props: T) {
@@ -31,5 +31,5 @@ export abstract class Entity<T extends Prop<T>> extends Cacheable<T> {
 
   // TODO: This class should convert itself to a Dto object, and I'll implement it if I become a genius :-)
   // I cannot implement this method because I don't know how to implement it. I'm so foolish.
-  abstract toDto(): JsonValue;
+  abstract toDto(): JsonSerializable<T>;
 }

@@ -1,6 +1,7 @@
 import { Entity } from '../../common/mixins/entity.mixin';
 import { UserRating } from './user-rating.entity';
 import { uuidv7 } from 'uuidv7';
+import { JsonSerializable } from '../../common/utils/json/props-converter';
 
 interface GameResultProps {
   id: string;
@@ -30,7 +31,7 @@ class GameResult extends Entity<GameResultProps> {
     return this.props.updatedAt;
   }
 
-  override toDto() {
+  override toDto(): JsonSerializable<typeof this.props> {
     return {
       id: this.id,
       guildId: this.guildId,

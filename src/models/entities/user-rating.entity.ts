@@ -1,5 +1,6 @@
 import { Entity } from '../../common/mixins/entity.mixin';
 import { uuidv7 } from 'uuidv7';
+import { JsonSerializable } from '../../common/utils/json/props-converter';
 
 interface UserRatingProps {
   id: string;
@@ -40,7 +41,7 @@ class UserRating extends Entity<UserRatingProps> {
     this.props.updatedAt = new Date();
   }
 
-  override toDto() {
+  override toDto(): JsonSerializable<typeof this.props> {
     return {
       id: this.id,
       userId: this.userId,
