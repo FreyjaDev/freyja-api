@@ -1,7 +1,7 @@
 import { userRating, UserRating } from '../entities/user-rating.entity';
 import { db as defaultDb } from '../../common/database';
 import { userRatingSchema } from '../schemas';
-import { and, desc, eq } from 'drizzle-orm';
+import { and, desc, eq, sql } from 'drizzle-orm';
 
 export const userRatingRepository = {
   findById: async (id: string, db: typeof defaultDb = defaultDb) => {
@@ -75,6 +75,31 @@ export const userRatingRepository = {
         updatedAt: record.updatedAt,
       }),
     );
+  },
+  getUserRank: async (
+    userRating: UserRating,
+    db: typeof defaultDb = defaultDb,
+  ): Promise<number | undefined> => {
+    const subQuery = db
+      .select({
+        rank: sql`RANK() OVER (ORDER BY rating DESC)`,
+        userId: userRatingSchema.userId,
+      })
+      .from(userRatingSchema)
+      .where(eq(userRatingSchema.userId, userRating.userId))
+      .orderBy(desc(userRatingSchema.rating))
+      .as('sq');
+
+    const records = await db
+      .select()
+      .from(subQuery)
+      .where(eq(subQuery.userId, userRating.userId));
+
+    if (records.length < 1) {
+      return undefined;
+    }
+
+    return records[0].rank;
   },
   save: async (userRating: UserRating, db: typeof defaultDb = defaultDb) => {
     await db
