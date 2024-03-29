@@ -21,5 +21,8 @@ export const getGuildMemberRating = async (guildId: string, userId: string) => {
     );
   }
 
-  return memberRating.toDto();
+  return {
+    ...memberRating.user.toDto(),
+    rank: memberRating.rank,
+  };
 };
