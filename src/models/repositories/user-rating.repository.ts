@@ -86,7 +86,7 @@ export const userRatingRepository = {
         userId: userRatingSchema.userId,
       })
       .from(userRatingSchema)
-      .where(eq(userRatingSchema.userId, userRating.userId))
+      .where(eq(userRatingSchema.guildId, userRating.guildId))
       .orderBy(desc(userRatingSchema.rating))
       .as('sq');
 
