@@ -82,7 +82,7 @@ export const userRatingRepository = {
   ): Promise<number | undefined> => {
     const subQuery = db
       .select({
-        rank: sql`RANK() OVER (ORDER BY rating DESC)`,
+        rank: sql<number>`RANK() OVER(ORDER BY rating DESC)`.as('rank'),
         userId: userRatingSchema.userId,
       })
       .from(userRatingSchema)
@@ -91,7 +91,9 @@ export const userRatingRepository = {
       .as('sq');
 
     const records = await db
-      .select()
+      .select({
+        rank: subQuery.rank,
+      })
       .from(subQuery)
       .where(eq(subQuery.userId, userRating.userId));
 
