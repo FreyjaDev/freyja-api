@@ -91,8 +91,14 @@ const createUserRating = async (
   return rating;
 };
 
-const calculateRating = (winnerRating: number, loserRating: number): number => {
-  return clampRating(32 / 10 ** ((winnerRating - loserRating) / 400) + 1);
+const calculateRating = (
+  winnerRating: number,
+  loserRating: number,
+  kFactor: number = 32,
+): number => {
+  return clampRating(
+    Math.round(kFactor / (10 ** ((winnerRating - loserRating) / 400) + 1)),
+  );
 };
 
 const clampRating = (rating: number): number => {
